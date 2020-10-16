@@ -48,7 +48,11 @@ class PopupController < ApplicationController
       if @assignment.reviewer_is_team
         @reviewer_id = reviewer_id
       else
+<<<<<<< HEAD
         @reviewer_id = Participant.find(reviewer_id).user_id
+=======
+        @reviewer_id = Participant.find(reviewer_id).user_id   
+>>>>>>> dee9521843068baaa415a9f3cbe0b1efeccd02f3
       end
       # get the last response in each round from response_map id
       (1..@assignment.num_review_rounds).each do |round|

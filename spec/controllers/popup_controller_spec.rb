@@ -7,6 +7,7 @@ describe PopupController do
   let(:response) { build(:response, id: 1) }
   let(:assignment) { build(:assignment, id: 1) }
   let(:response_map) { build(:review_response_map, id: 1, reviewee_id: team.id, reviewer_id: participant2.id, response: [response], assignment: assignment) }
+  let(:instructor)  {build(:instructor)}
   final_versions = {
     review_round_one: {questionnaire_id: 1, response_ids: [77024]},
     review_round_two: {questionnaire_id: 2, response_ids: []},
@@ -23,8 +24,16 @@ describe PopupController do
     ## INSERT CONTEXT/DESCRIPTION/CODE HERE
   end
 
-  describe '#team_users_popup' do
-    ## INSERT CONTEXT/DESCRIPTION/CODE HERE
+  describe '#team_users_popup' do 
+    it "renders the page successfuly as Instructor" do 
+      allow(Team).to receive(:find).and_return(team)
+      allow(Assignment).to receive(:find).and_return(assignment)
+      params = {id: team.id, assignment: assignment, reviewer_id: participant2.id}
+      session = {user: instructor}
+      result = get :team_users_popup, params, session
+      expect(result.status).to eq 200
+    end
+    
   end
 
   ######### Tone Analysis Tests ##########
